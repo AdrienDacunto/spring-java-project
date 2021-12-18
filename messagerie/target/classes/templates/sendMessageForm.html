@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Envoyer un message</title>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			text-align: left;
+		}
+		input[type=text], input[type=password], select {
+			display: inline-block;
+			width: 200px;
+		}
+		button {
+			padding: 5px;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div align="center">
+	<h1>Votre message:</h1>
+	<form action="#" th:action="@{/connexion_compte}" method="post" th:object="${user}">
+	
+		<label>Email(s) :</label>
+		<input type = "email" th:field="*{email}" /><br/>
+		<label>Objet :</label>
+		<input type = "objet" th:field="*{objet}" /><br/>
+		<label>Contenu</label>
+		<input type = "contenu" th:field="*{contenu}" /><br/>
+		<button type = "submit">Envoyer</button>
+	</form>
+	</div>
+</body>
+</html>
