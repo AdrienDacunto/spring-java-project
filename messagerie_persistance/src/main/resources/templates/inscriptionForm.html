@@ -2,6 +2,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Inscription</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style type="text/css">
 		label {
 			display: inline-block;
@@ -9,7 +12,7 @@
 			margin: 5px;
 			text-align: left;
 		}
-		input[type=text], input[type=password], select {
+		input[type=text], input[type=password], input[type=email], button[type=submit], select {
 			display: inline-block;
 			width: 200px;
 		}
@@ -27,23 +30,23 @@
 </head>
 <body>
 	<div align="center">
-	<h1>Formulaire d'inscription</h1>
-	<form action="#" th:action="@{/inscription}" method="post" th:object="${user}">
+	<h3 class="form-signin-heading">INSCRIPTION PAGE</h3>
+	<form action="#" th:action="@{/inscription}" class="form-signin" method="post" th:object="${user}">
 		<label>Nom :</label>
-		<input type = "text" th:field="*{nom}" /><br/>
+		<input class="form-control" type = "text" th:field="*{nom}" /><br/>
 		<label>Prenom :</label>
-		<input type = "text" th:field="*{prenom}" /><br/>
+		<input class="form-control" type = "text" th:field="*{prenom}" /><br/>
 		<label>Date de naissance :</label>
-		<input type = "text" th:field="*{dateNaissance}" /><br/>
+		<input class="form-control" type = "text" th:field="*{dateNaissance}" /><br/>
 		<label>Email :</label>
-		<input type = "email" th:field="*{email}" /><br/>
+		<input class="form-control" type = "email" th:field="*{email}" /><br/>
 		<label>Mot de passe :</label>
-		<input type = "password" th:field="*{motDePasse}" /><br/>
+		<input class="form-control" type = "password" th:field="*{motDePasse}" /><br/>
 		<label>Sexe :</label>
 		<input type = "radio" th:field="*{sexe}" value="masculin"/>Masculin
 		<input type = "radio" th:field="*{sexe}" value="feminin"/>Féminin<br/>
 		
-		<button type = "submit">Valider</button>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
 		
 	</form>
 	</div>

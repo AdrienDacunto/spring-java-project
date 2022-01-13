@@ -1,7 +1,9 @@
-package fr.limayrac.messagerie_persistance.models;
+package com.banque.persistance.model;
 
 
 import javax.persistence.*;
+
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "utilisateur")
-public class Utilisateur
+public class Utilisateur 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,7 +82,7 @@ public class Utilisateur
 	
     @OneToMany(mappedBy = "utilisateur")
     private List<Message> message = new ArrayList<>();
-
+    
 	public Integer getId() {
 		return id;
 	}
@@ -150,6 +152,7 @@ public class Utilisateur
 		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
 				+ ", email=" + email + ", motDePasse=" + motDePasse + ", sexe=" + sexe + ", message=" + message + "]";
 	}
+
     
     
 	

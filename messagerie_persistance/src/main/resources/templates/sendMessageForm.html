@@ -2,6 +2,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Envoyer un message</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style type="text/css">
 		label {
 			display: inline-block;
@@ -20,18 +23,22 @@
 	</style>
 </head>
 <body>
-	<div align="center">
-	<h1>Votre message:</h1>
-	<form action="#" th:action="@{/connexion_compte}" method="post" th:object="${user}">
-	
-		<label>Email(s) :</label>
-		<input type = "email" th:field="*{email}" /><br/>
-		<label>Objet :</label>
-		<input type = "objet" th:field="*{objet}" /><br/>
-		<label>Contenu</label>
-		<input type = "contenu" th:field="*{contenu}" /><br/>
-		<button type = "submit">Envoyer</button>
-	</form>
+	<div class="container">
+	<br/><br/>
+		<form class="form-signin" action="#" th:action="@{/envoi_formulaire}" method="post" th:object="${message}">
+			<h1 class="form-signin-heading">Votre message:</h1>
+			
+			<br/>
+			
+			<label>Email(s) :</label>
+			<input class="form-control" type="email" name="emails" multiple/><br/>
+			<label>Objet :</label>
+			<input class="form-control" type="text" th:field="*{objet}"  /><br/>
+			<label>Contenu</label>
+			<textarea class="form-control" th:field="*{contenu}"></textarea> <br/>
+			
+			<button class="btn btn-lg btn-primary btn-block" type = "submit">Envoyer</button>
+		</form>
 	</div>
 </body>
 </html>

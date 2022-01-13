@@ -1,4 +1,4 @@
-package fr.limayrac.messagerie_persistance.models;
+package com.banque.persistance.model;
 
 import javax.persistence.*;
 
@@ -17,5 +17,21 @@ public class Envoi {
 	@OneToOne
     @JoinColumn(name = "idMessage")
     private Message envoi;
+	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
+	public Message getEnvoi() {
+		return envoi;
+	}
+
+	public void setEnvoi(Message envoi) {
+		this.envoi = envoi;
+	}
 }
 

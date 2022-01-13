@@ -1,4 +1,4 @@
-package fr.limayrac.messagerie_persistance.service;
+package com.banque.persistance.service;
 
 
 import java.util.List;
@@ -6,9 +6,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import fr.limayrac.messagerie_persistance.models.Utilisateur;
-import fr.limayrac.messagerie_persistance.repository.UtilisateurRepository;
+import com.banque.persistance.model.Utilisateur;
+import com.banque.persistance.repository.UtilisateurRepository;
 import lombok.Data;
 
 @Data
@@ -40,9 +41,22 @@ public class UtilisateurService {
 	}
 	public void checkUserConnection(Utilisateur utilisateur) {
 		Optional<Utilisateur> userOptional = utilisateurRepository.isCorrectUser(utilisateur.getEmail(), utilisateur.getMotDePasse());
+		
 		if(userOptional.isEmpty()) {
 			throw new IllegalStateException("email or password incorrect");
+		}
+		
+		
 	}
-		//utilisateurRepository.
+	@Transactional(readOnly = true)
+	public Utilisateur FindUsernameByMail (String Email) {
+		Utilisateur user = null;
+		try {
+			user = utilisateurRepository.findByUsernameOrEmail(Email);
+		} catch (Exception e) {
+			throw e;
+		}
+		return user;
 	}
+	
 }

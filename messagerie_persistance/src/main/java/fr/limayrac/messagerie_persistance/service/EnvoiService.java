@@ -1,4 +1,4 @@
-package fr.limayrac.messagerie_persistance.service;
+package com.banque.persistance.service;
 
 public class EnvoiService {
 

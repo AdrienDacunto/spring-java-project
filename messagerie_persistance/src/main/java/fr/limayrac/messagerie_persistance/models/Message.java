@@ -1,4 +1,4 @@
-package fr.limayrac.messagerie_persistance.models;
+package com.banque.persistance.model;
 
 import java.time.LocalDate;
 
@@ -12,20 +12,23 @@ public class Message
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "objet", length = 30, nullable = false)
+    private String objet;
+    
     @Column(name = "contenu", length = 30, nullable = false)
 	private String contenu;
 	
-	@Column(name = "dateTime", nullable = false)
+	@Column(name = "dateTime")
 	private LocalDate dateTime;
 	
-	@Column(name = "status", length = 30, nullable = false)
+	@Column(name = "status", length = 30)
 	private String status;
 	
     @ManyToOne
     @JoinColumn(name = "idEmmeteur")
     private Utilisateur utilisateur;
     
-    @Column(name = "idPredecesseur", length = 30, nullable = true)
+    @Column(name = "idPredecesseur", length = 30)
 	private Integer idPredecesseur;
 
     @OneToOne(mappedBy = "envoi")
@@ -89,8 +92,17 @@ public class Message
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", contenu=" + contenu + ", dateTime=" + dateTime + ", status=" + status
-				+ ", utilisateur=" + utilisateur + ", idPredecesseur=" + idPredecesseur + ", envoies=" + envoies + "]";
+		return "Message [id=" + id + ", objet=" + objet + ", contenu=" + contenu + ", dateTime=" + dateTime
+				+ ", status=" + status + ", utilisateur=" + utilisateur + ", idPredecesseur=" + idPredecesseur
+				+ ", envoies=" + envoies + "]";
+	}
+
+	public String getObjet() {
+		return objet;
+	}
+
+	public void setObjet(String objet) {
+		this.objet = objet;
 	}
     
     
