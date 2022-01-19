@@ -18,7 +18,7 @@ public class Utilisateur
     private Integer id;
 
     public Utilisateur(Integer id, String nom, String prenom, LocalDate dateNaissance, String email, String motDePasse,
-			String sexe, List<Message> message) {
+			String sexe, List<Message> message, List<Envoi> envoi) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -28,7 +28,8 @@ public class Utilisateur
 		this.motDePasse = motDePasse;
 		this.sexe = sexe;
 		this.message = message;
-	}
+		this.envoi = envoi;
+    }
     
     
 
@@ -44,7 +45,7 @@ public class Utilisateur
 	}
 
 	public Utilisateur(String nom, String prenom, LocalDate dateNaissance, String email, String motDePasse, String sexe,
-			List<Message> message) {
+			List<Message> message, List<Envoi> envoi) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -53,6 +54,7 @@ public class Utilisateur
 		this.motDePasse = motDePasse;
 		this.sexe = sexe;
 		this.message = message;
+		this.envoi = envoi;
 	}
 
 	public Utilisateur() {
@@ -82,6 +84,9 @@ public class Utilisateur
 	
     @OneToMany(mappedBy = "utilisateur")
     private List<Message> message = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Envoi> envoi = new ArrayList<>();
     
 	public Integer getId() {
 		return id;
@@ -151,6 +156,18 @@ public class Utilisateur
 	public String toString() {
 		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
 				+ ", email=" + email + ", motDePasse=" + motDePasse + ", sexe=" + sexe + ", message=" + message + "]";
+	}
+
+
+
+	public List<Envoi> getEnvoi() {
+		return envoi;
+	}
+
+
+
+	public void setEnvoi(List<Envoi> envoi) {
+		this.envoi = envoi;
 	}
 
     

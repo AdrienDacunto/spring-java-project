@@ -33,9 +33,9 @@
 			<label>Email(s) :</label>
 			<input class="form-control" type="email" name="emails" multiple/><br/>
 			<label>Objet :</label>
-			<input class="form-control" type="text" th:field="*{objet}"  /><br/>
+			<input class="form-control" type="text" th:field="*{objet}" maxlength="100"  /><br/>
 			<label>Contenu</label>
-			<textarea class="form-control" th:field="*{contenu}"></textarea> <br/>
+			<textarea class="form-control" th:field="*{contenu}" maxlength="1000"></textarea> <br/>
 			
 			<button class="btn btn-lg btn-primary btn-block" type = "submit">Envoyer</button>
 		</form>

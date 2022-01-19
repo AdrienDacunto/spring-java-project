@@ -13,13 +13,19 @@ import
   org.springframework.web.bind.annotation.PostMapping; import
   org.springframework.web.bind.annotation.RestController; import
   org.springframework.web.servlet.ModelAndView; import
-  com.banque.persistance.model.Utilisateur; import
+  com.banque.persistance.model.Utilisateur;
+import com.banque.persistance.service.MessageService;
+import
   com.banque.persistance.service.UtilisateurService;
   
   
-  @RestController public class ConnexionFormController {
+  @RestController 
+  public class ConnexionFormController {
   
-  @Autowired private UtilisateurService utilisateurService;
+  @Autowired 
+  private UtilisateurService utilisateurService;
+  @Autowired
+  private MessageService messageService;
   
   @GetMapping("/welcome") 
   public ModelAndView welcome(Model model,String error, String logout) {
@@ -35,7 +41,18 @@ import
 	  if(username.isEmpty()) {
 		  return new ModelAndView("connexionForm","user", username);
 	  }
-	  return new ModelAndView("getMessageInterface","user", username);
+	  return new ModelAndView("getMessageInterface","users", messageService.getMessageByEmail(username));
+  }
+  
+  @GetMapping("/envoie") 
+  public ModelAndView envoi(Model model) {
+	  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	  String username = auth.getName();
+	  System.out.println(username);
+	  if(username.isEmpty()) {
+		  return new ModelAndView("connexionForm","user", username);
+	  }
+	  return new ModelAndView("sendMessageInterface","users", messageService.sendInterfaceByEmail(username));
   }
 }
   

@@ -1,5 +1,6 @@
 package com.banque.persistance.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,6 @@ public class MessageService {
 	private final UtilisateurRepository utilisateurRepository;
 	
 	@Autowired
-	
 	public MessageService(MessageRepository messageRepository, EnvoiRepository envoiRepository,
 			UtilisateurRepository utilisateurRepository) {
 		super();
@@ -34,6 +34,7 @@ public class MessageService {
 		this.envoiRepository = envoiRepository;
 		this.utilisateurRepository = utilisateurRepository;
 	}
+	
 
 	public void addNewMessage(Message message, Envoi envoi, List<String> Emails) {
 		//Save Message
@@ -65,18 +66,75 @@ public class MessageService {
 		
 		
 		for (String email : Emails){
+			
 			//Insert in Envoi with idDestinataire of every mails + the idMessage
-		Utilisateur utilisateur_envoi = utilisateurRepository.findByUsernameOrEmail(email);
-		//int id_envoi = utilisateur_envoi.getId();
 		
-		Envoi envoi_email = new Envoi();
-		envoi_email.setUtilisateur(utilisateur_envoi);
-		envoi_email.setEnvoi(message);
-		envoiRepository.save(envoi_email);
+			Utilisateur utilisateur_envoi = utilisateurRepository.findByUsernameOrEmail(email);
+		
+			//int id_envoi = utilisateur_envoi.getId();
+		
+		
+			Envoi envoi_email = new Envoi();
+		
+			envoi_email.setUtilisateur(utilisateur_envoi);
+		
+			envoi_email.setEnvoi(message);
+		
+			envoiRepository.save(envoi_email);
 		}
 	}
 	
-	//GetAllMessageOfTheUser
+	
+	
+
+
+	public List<Message> getMessageByEmail(String username) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username1 = auth.getName();
+		
+		Utilisateur utilisateur = utilisateurRepository.findByUsernameOrEmail(username1);
+		
+		int id_user = utilisateur.getId();
+		
+		//Get all envoi
+		
+		Utilisateur utilisateur_envoi = new Utilisateur();
+		List<Envoi> envois = envoiRepository.findAll();
+		List<Message> message = new ArrayList<Message>();
+		
+		for (Envoi envoi : envois) {
+			 utilisateur_envoi = envoi.getUtilisateur();
+			 if(utilisateur_envoi == utilisateur ) {
+				 message.add(envoi.getEnvoi());
+			 }
+	    }
+		
+		return message;		
+		
+	}
+	
+	public List<Message> sendInterfaceByEmail(String username){
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username1 = auth.getName();
+		
+		Utilisateur utilisateur = utilisateurRepository.findByUsernameOrEmail(username1);
+		
+		int id_user = utilisateur.getId();
+		
+	
+		
+		List<Message> messages = messageRepository.findAll();
+		List<Message> message = new ArrayList<Message>();
+		
+		for (Message message_envoi : messages) {
+			 if(message_envoi.getUtilisateur() == utilisateur ) {
+				 message.add(message_envoi);
+			 }
+	    }
+		return message;
+	}
 	
 	
 	

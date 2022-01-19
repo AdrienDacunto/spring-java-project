@@ -12,10 +12,10 @@ public class Message
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "objet", length = 30, nullable = false)
+    @Column(name = "objet", length = 100, nullable = false)
     private String objet;
     
-    @Column(name = "contenu", length = 30, nullable = false)
+    @Column(name = "contenu", length = 1000, nullable = false)
 	private String contenu;
 	
 	@Column(name = "dateTime")
@@ -30,9 +30,6 @@ public class Message
     
     @Column(name = "idPredecesseur", length = 30)
 	private Integer idPredecesseur;
-
-    @OneToOne(mappedBy = "envoi")
-    private Envoi envoies;
 
 	public Integer getId() {
 		return id;
@@ -82,20 +79,8 @@ public class Message
 		this.idPredecesseur = idPredecesseur;
 	}
 
-	public Envoi getEnvoies() {
-		return envoies;
-	}
 
-	public void setEnvoies(Envoi envoies) {
-		this.envoies = envoies;
-	}
-
-	@Override
-	public String toString() {
-		return "Message [id=" + id + ", objet=" + objet + ", contenu=" + contenu + ", dateTime=" + dateTime
-				+ ", status=" + status + ", utilisateur=" + utilisateur + ", idPredecesseur=" + idPredecesseur
-				+ ", envoies=" + envoies + "]";
-	}
+	
 
 	public String getObjet() {
 		return objet;

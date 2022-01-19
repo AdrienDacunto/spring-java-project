@@ -14,7 +14,7 @@ public class Envoi {
     @JoinColumn(name = "idDestinataire")
     private Utilisateur utilisateur;
 	
-	@OneToOne
+	@ManyToOne
     @JoinColumn(name = "idMessage")
     private Message envoi;
 	
