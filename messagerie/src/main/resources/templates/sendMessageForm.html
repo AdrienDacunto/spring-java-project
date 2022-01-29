@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Envoyer un message</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			text-align: left;
+		}
+		input[type=text], input[type=password], select {
+			display: inline-block;
+			width: 200px;
+		}
+		button {
+			padding: 5px;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	<br/><br/>
+		<form class="form-signin" action="#" th:action="@{/envoi_formulaire}" method="post" th:object="${message}">
+			<h1 class="form-signin-heading">Votre message:</h1>
+			
+			<br/>
+			
+			<label>Email(s) :</label>
+			<input class="form-control" type="email" name="emails" multiple/><br/>
+			<label>Objet :</label>
+			<input class="form-control" type="text" th:field="*{objet}" maxlength="100"  /><br/>
+			<label>Contenu</label>
+			<textarea class="form-control" th:field="*{contenu}" maxlength="1000"></textarea> <br/>
+			
+			<button class="btn btn-lg btn-primary btn-block" type = "submit">Envoyer</button>
+		</form>
+	</div>
+</body>
+</html>

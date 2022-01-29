@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Reception</title>
+</head>
+<style>
+table, p, h1, li {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 8px;
+}
+tr:nth-child(even) {
+background-color: #dddddd;
+}
+.main-container{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.top-container{
+	width: 100%;
+	height: 10%;
+}
+.bottom-container{
+	width: 100%;
+	height: 90%;
+	display: flex;
+	flex-direction: row;
+}
+.left-container
+{
+	width: 10%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.right-container{
+	width: 90%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.input-submit {
+    background-color: #E8E8E8;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.envoie-message{
+	text-align: left;
+}
+.span-return_object{
+  	display:inline-block;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	max-width: 180ch;
+}
+.span-return_message{
+  	display:inline-block;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	max-width: 180ch;
+}
+dialog {
+	width: 40%;
+	height: 40%;
+	position: absolute;
+	top: 25%;
+	font-family: sans-serif;
+	color: #555;
+	border-radius: 2px;
+	box-shadow: 10px 5px 5px grey;
+	overflow-y: scroll;
+}
+
+ul {
+	list-style-type: none;
+}
+li {
+	margin-bottom: 40px;
+}
+
+h4, p {
+	margin: 0;
+}
+
+p{
+	max-width:100ch;
+    word-wrap:break-word;
+}
+</style>
+<body>
+<div class="main-container">
+<div class="top-container">
+</div>
+<div class="bottom-container">
+	<div class="left-container">
+		<a href="/reception"><input class="input-submit" type="submit" value="Reçu"/></a>
+		<a href="/envoie"><input class="input-submit" type="submit" value="Envoyé"/></a>
+		<a href="/poubelle"><input class="input-submit" type="submit" value="Corbeille"/></a>
+		<a href="/envoi_formulaire"><input class="input-submit" type="submit" value="Envoyer un message"/></a>
+	</div>
+	<div class="right-container">
+		<table class="list-group">
+    		<thead>
+        		<tr>
+        			<th>	<input  class="btn btn-outline-primary" type="submit" value="Supprimer"/>   </th>
+            		<th> Objet </th>
+            		<th> Message </th>
+        		</tr>
+    		</thead>
+    		<tbody>
+				<tr th:if="${users.empty}">
+            		<td colspan="2"> Pas de messages </td>
+       			</tr>
+        		<tr th:each="user : ${users}">
+      	  			<td><input type="checkbox" class="check" name="check"/></td>
+            		<td><button class="openBtn"><span class="span-return_object" th:text="${user.objet}"> Objet </span></button></td>
+            		<td><span class="span-return_message" th:text="${user.contenu}"> Contenu </span></td>
+        		</tr>
+    		</tbody>
+		</table>
+		<dialog id="dialog">
+			<button class="btn btn-outline-primary" id="closeBtn">
+				Fermer
+			</button>
+			<ul>
+				<li>
+					<h4>EMMETEUR</h4>
+					<p id="emmeteur"></p>
+				</li>
+				<li>
+					<h4>OBJET</h4>
+					<p id="object"></p>
+				</li>
+				<li>
+					<h4>MESSAGE</h4>
+					<p id="message"></p>
+				</li>
+			</ul>
+		</dialog>
+	</div>
+</div>
+</div>
+<script>
+	var dialog = document.getElementById('dialog');
+	var closeBtn = document.getElementById('closeBtn');
+	var object = document.getElementById('object');
+	var message = document.getElementById('message'); 
+	
+	
+	var openBtn = document.getElementsByClassName("openBtn");
+
+	for (let i = 0; i < openBtn.length; i++) {
+	    openBtn[i].addEventListener('click', function(){
+	    	dialog.setAttribute('open', true);
+	    	object.innerText = document.getElementsByClassName("span-return_object")[i].innerHTML;
+	    	message.innerText = document.getElementsByClassName("span-return_message")[i].innerHTML;
+	    }, false);
+	}
+	
+	closeBtn.addEventListener('click', function() {
+	dialog.removeAttribute('open');
+	});
+</script>
+</body>
+</html>
